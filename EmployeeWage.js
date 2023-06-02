@@ -1,106 +1,54 @@
-console.log("Welcome to Employee Wage Project");
-
-let a = Math.floor(Math.random() * 2);
-if (a === 1) {
-  console.log("Employee is Present");
-} else {
-  console.log("Employee is Absent");
-}
-
-const IS_PRESENT = 1;
-const WAGE_PER_HOUR = 20;
-const FULL_DAY_HOUR = 8;
-let dailyWage = 0;
-
-let attendance = Math.floor(Math.random() * 2);
-if (attendance === IS_PRESENT) {
-  dailyWage = WAGE_PER_HOUR * FULL_DAY_HOUR;
-  console.log("Employee is Present. Daily Wage = " + dailyWage);
-} else {
-  console.log("Employee is Absent. Daily Wage = " + dailyWage);
-}
-
-const IS_PART_TIME = 1;
-const IS_FULL_TIME = 2;
-const PART_TIME_HOUR = 4;
-let NewAttendance = Math.floor(Math.random() * 3);
-if (NewAttendance === IS_PART_TIME) {
-  dailyWage = WAGE_PER_HOUR * PART_TIME_HOUR;
-  console.log("Employee is Part Time. Daily Wage = " + dailyWage);
-} else if (NewAttendance === IS_FULL_TIME) {
-  dailyWage = WAGE_PER_HOUR * FULL_DAY_HOUR;
-  console.log("Employee is Full Time. Daily Wage = " + dailyWage);
-} else {
-  console.log("Employee is Absent. Daily Wage = " + dailyWage);
-}
-
-const PART_TIME = 1;
-const FULL_TIME = 2;
-const WAGEPERHOUR = 20;
-const FULLDAYHOUR = 8;
-const PARTTIMEHOUR = 4;
-switch (NewAttendance) {
-  case PART_TIME:
-    dailyWage = WAGEPERHOUR * PARTTIMEHOUR;
-    console.log("Employee is Part Time. Daily Wage = " + dailyWage);
-    break;
-  case FULL_TIME:
-    dailyWage = WAGEPERHOUR * FULLDAYHOUR;
-    console.log("Employee is Full Time. Daily Wage = " + dailyWage);
-    break;
-  default:
-    console.log("Employee is Absent. Daily Wage = " + dailyWage);
-    break;
-}
-
-const NUM_WORKING_DAYS = 20;
-let monthlyWage = 0;
-
-for (let i = 0; i < NUM_WORKING_DAYS; i++) {
-  NewAttendance = Math.floor(Math.random() * 3); // 0 for absent, 1 for part-time, 2 for full-time
-
-  dailyWage = (() => {
-    switch (attendance) {
-      case PART_TIME:
-        return WAGE_PER_HOUR * PART_TIME_HOUR;
-      case FULL_TIME:
-        return WAGE_PER_HOUR * FULL_DAY_HOUR;
-      default:
-        return 0;
+class EmployeeWageCalculator {
+    static NUM_WORKING_DAYS = 20;
+    static IS_PART_TIME = 1;
+    static IS_FULL_TIME = 2;
+    static PART_TIME_HOUR = 4;
+    static WAGE_PER_HOUR = 20;
+    static FULL_DAY_HOUR = 8;
+    static MAX_WORKING_HOURS = 100;
+  
+    constructor() {
+      this.totalWorkingDays = 0;
+      this.totalWorkingHours = 0;
+      this.monthlyWage = 0;
     }
-  })();
-
-  monthlyWage += dailyWage;
-}
-console.log("Employee Monthly Wage = " + monthlyWage);
-
-const MAX_WORKING_HOURS = 100;
-let totalWorkingDays = 0;
-let totalWorkingHours = 0;
-while (totalWorkingDays < NUM_WORKING_DAYS && totalWorkingHours < MAX_WORKING_HOURS) {
-  const newAttendance = Math.floor(Math.random() * 3); // 0 for absent, 1 for part-time, 2 for full-time
-
-  switch (newAttendance) {
-    case 1:
-      dailyWage = WAGE_PER_HOUR * PART_TIME_HOUR;
-      totalWorkingHours += PART_TIME_HOUR;
-      break;
-    case 2:
-      dailyWage = WAGE_PER_HOUR * FULL_DAY_HOUR;
-      totalWorkingHours += FULL_DAY_HOUR;
-      break;
-    default:
-      dailyWage = 0;
-      break;
+  
+    calculateWage() {
+      console.log("Welcome to Employee Wage Project");
+      let dailyWage;
+      while (
+        this.totalWorkingDays < EmployeeWageCalculator.NUM_WORKING_DAYS &&
+        this.totalWorkingHours < EmployeeWageCalculator.MAX_WORKING_HOURS
+      ) {
+        const newAttendance = Math.floor(Math.random() * 3); // 0 for absent, 1 for part-time, 2 for full-time
+        switch (newAttendance) {
+          case EmployeeWageCalculator.IS_PART_TIME:
+            dailyWage = EmployeeWageCalculator.WAGE_PER_HOUR * EmployeeWageCalculator.PART_TIME_HOUR;
+            this.totalWorkingHours += EmployeeWageCalculator.PART_TIME_HOUR;
+            break;
+          case EmployeeWageCalculator.IS_FULL_TIME:
+            dailyWage = EmployeeWageCalculator.WAGE_PER_HOUR * EmployeeWageCalculator.FULL_DAY_HOUR;
+            this.totalWorkingHours += EmployeeWageCalculator.FULL_DAY_HOUR;
+            break;
+          default:
+            dailyWage = 0;
+            break;
+        }
+        this.totalWorkingDays++;
+        this.monthlyWage += dailyWage;
+      }
+    }
+  
+    printWage() {
+      console.log("Total Working Days = " + this.totalWorkingDays);
+      console.log("Total Working Hours = " + this.totalWorkingHours);
+      console.log("Employee Monthly Wage = " + this.monthlyWage);
+    }
   }
-
-  totalWorkingDays++;
-  monthlyWage += dailyWage;
-}
-
-console.log("Total Working Days = " + totalWorkingDays);
-console.log("Total Working Hours = " + totalWorkingHours);
-console.log("Employee Monthly Wage = " + monthlyWage);
-
+  
+  const empWage = new EmployeeWageCalculator();
+  empWage.calculateWage();
+  empWage.printWage();
+  
 
 
