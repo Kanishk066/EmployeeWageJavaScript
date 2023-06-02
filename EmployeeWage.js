@@ -74,4 +74,33 @@ for (let i = 0; i < NUM_WORKING_DAYS; i++) {
 }
 console.log("Employee Monthly Wage = " + monthlyWage);
 
+const MAX_WORKING_HOURS = 100;
+let totalWorkingDays = 0;
+let totalWorkingHours = 0;
+while (totalWorkingDays < NUM_WORKING_DAYS && totalWorkingHours < MAX_WORKING_HOURS) {
+  const newAttendance = Math.floor(Math.random() * 3); // 0 for absent, 1 for part-time, 2 for full-time
+
+  switch (newAttendance) {
+    case 1:
+      dailyWage = WAGE_PER_HOUR * PART_TIME_HOUR;
+      totalWorkingHours += PART_TIME_HOUR;
+      break;
+    case 2:
+      dailyWage = WAGE_PER_HOUR * FULL_DAY_HOUR;
+      totalWorkingHours += FULL_DAY_HOUR;
+      break;
+    default:
+      dailyWage = 0;
+      break;
+  }
+
+  totalWorkingDays++;
+  monthlyWage += dailyWage;
+}
+
+console.log("Total Working Days = " + totalWorkingDays);
+console.log("Total Working Hours = " + totalWorkingHours);
+console.log("Employee Monthly Wage = " + monthlyWage);
+
+
 
