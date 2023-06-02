@@ -53,4 +53,25 @@ switch (NewAttendance) {
     break;
 }
 
+const NUM_WORKING_DAYS = 20;
+let monthlyWage = 0;
+
+for (let i = 0; i < NUM_WORKING_DAYS; i++) {
+  NewAttendance = Math.floor(Math.random() * 3); // 0 for absent, 1 for part-time, 2 for full-time
+
+  dailyWage = (() => {
+    switch (attendance) {
+      case PART_TIME:
+        return WAGE_PER_HOUR * PART_TIME_HOUR;
+      case FULL_TIME:
+        return WAGE_PER_HOUR * FULL_DAY_HOUR;
+      default:
+        return 0;
+    }
+  })();
+
+  monthlyWage += dailyWage;
+}
+console.log("Employee Monthly Wage = " + monthlyWage);
+
 
