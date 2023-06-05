@@ -1,5 +1,15 @@
+class Employee {
+  constructor(id, name, salary, gender, startDate) {
+    this.id = id;
+    this.name = name;
+    this.salary = salary;
+    this.gender = gender;
+    this.startDate = startDate;
+  }
+}
+
 class EmployeeWageCalculator {
-  constructor(company, wagePerHour, numWorkingDays, maxWorkingHours) {
+  constructor(company, wagePerHour, numWorkingDays, maxWorkingHours, employee) {
     this.PART_TIME_HOUR = 4;
     this.FULL_DAY_HOUR = 8;
     this.totalWorkingDays = 0;
@@ -10,7 +20,10 @@ class EmployeeWageCalculator {
     this.numWorkingDays = numWorkingDays;
     this.maxWorkingHours = maxWorkingHours;
     this.totalWage = 0;
+    this.employee = employee;
   }
+
+
 
   calculateWage = () => {
     console.log("Calculating wage for company " + this.company);
@@ -83,6 +96,8 @@ class EmpWageBuilder {
   constructor() {
     this.companies = [];
     this.numCompanies = 0;
+    this.employees = [];
+    this.numEmployees = 0;
   }
 
   addCompany = (company, wagePerHour, numWorkingDays, maxWorkingHours) => {
@@ -108,6 +123,12 @@ class EmpWageBuilder {
 }
 };
 
+ addEmployee = (id, name, salary, gender, startDate) => {
+    const employee = new Employee(id, name, salary, gender, startDate);
+    this.employees.push(employee);
+    this.numEmployees++;
+  };
+
 getTotalWage = (company) => {
 for (let i = 0; i < this.companies.length; i++) {
 if (this.companies[i].getCompany() === company) {
@@ -121,6 +142,8 @@ return 0;
 const empWageBuilder = new EmpWageBuilder();
 empWageBuilder.addCompany("Company A", 20, 20, 100);
 empWageBuilder.addCompany("Company B", 25, 25, 120);
+empWageBuilder.addEmployee(1, "Kanishk Singhal", 5000, "Male", "2023-01-01");
+empWageBuilder.addEmployee(2, "Rajat Tokas", 6000, "Male", "2012-06-05");
 empWageBuilder.computeWages();
 
 const totalWageCompanyA = empWageBuilder.getTotalWage("Company A");
