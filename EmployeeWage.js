@@ -124,9 +124,18 @@ class EmpWageBuilder {
 };
 
  addEmployee = (id, name, salary, gender, startDate) => {
-    const employee = new Employee(id, name, salary, gender, startDate);
-    this.employees.push(employee);
-    this.numEmployees++;
+   try {
+      const namePattern = /^[A-Z][a-zA-Z]{2,}$/;
+      if (!namePattern.test(name)) {
+        throw new Error("Invalid name format. Name should start with a capital letter and have at least 3 characters.");
+      }
+
+      const employee = new Employee(id, name, salary, gender, startDate);
+      this.employees.push(employee);
+      this.numEmployees++;
+    } catch (error) {
+      console.error("Error adding employee:", error.message);
+    }
   };
 
 getTotalWage = (company) => {
